@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HarveyJobsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbAppInfo">
+    <Key>
+      <PropertyRef Name="AppID" />
+    </Key>
+    <Property Name="AppID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tbScheduledJobs">
+    <Key>
+      <PropertyRef Name="JobsID" />
+    </Key>
+    <Property Name="JobsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AppID" Type="int" Nullable="false" />
+    <Property Name="Time" Type="time" Precision="0" />
+    <Property Name="Day" Type="varchar" MaxLength="50" />
+    <Property Name="Success" Type="varchar" MaxLength="50" />
+    <Property Name="Files_DwUp" Type="int" />
+    <Property Name="Files_Sorted" Type="int" />
+  </EntityType>
+  <Association Name="FK_tbScheduledJobs_TotbAppInfo">
+    <End Role="tbAppInfo" Type="Self.tbAppInfo" Multiplicity="1" />
+    <End Role="tbScheduledJobs" Type="Self.tbScheduledJobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAppInfo">
+        <PropertyRef Name="AppID" />
+      </Principal>
+      <Dependent Role="tbScheduledJobs">
+        <PropertyRef Name="AppID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HarveyJobsModelStoreContainer">
+    <EntitySet Name="tbAppInfo" EntityType="Self.tbAppInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbScheduledJobs" EntityType="Self.tbScheduledJobs" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tbScheduledJobs_TotbAppInfo" Association="Self.FK_tbScheduledJobs_TotbAppInfo">
+      <End Role="tbAppInfo" EntitySet="tbAppInfo" />
+      <End Role="tbScheduledJobs" EntitySet="tbScheduledJobs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

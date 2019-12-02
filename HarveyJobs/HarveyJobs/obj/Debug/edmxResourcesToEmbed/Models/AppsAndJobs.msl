@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HarveyJobsModelStoreContainer" CdmEntityContainer="HarveyJobsEntities">
+    <EntitySetMapping Name="tbAppInfoes">
+      <EntityTypeMapping TypeName="HarveyJobsModel.tbAppInfo">
+        <MappingFragment StoreEntitySet="tbAppInfo">
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="AppName" ColumnName="AppName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbScheduledJobs">
+      <EntityTypeMapping TypeName="HarveyJobsModel.tbScheduledJob">
+        <MappingFragment StoreEntitySet="tbScheduledJobs">
+          <ScalarProperty Name="JobsID" ColumnName="JobsID" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Success" ColumnName="Success" />
+          <ScalarProperty Name="Files_DwUp" ColumnName="Files_DwUp" />
+          <ScalarProperty Name="Files_Sorted" ColumnName="Files_Sorted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

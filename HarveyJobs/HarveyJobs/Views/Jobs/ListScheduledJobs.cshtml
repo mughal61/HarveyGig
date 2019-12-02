@@ -1,0 +1,58 @@
+﻿@model IEnumerable<HarveyJobs.Models.tbScheduledJob>
+
+@{
+    ViewBag.Title = "ListScheduledJobs";
+}
+
+<h2>ListScheduledJobs</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateScheduledJob")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Success)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Files_DwUp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Files_Sorted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbAppInfo.AppName)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Success)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Files_DwUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Files_Sorted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbAppInfo.AppName)
+            </td>
+        </tr>
+    }
+
+</table>

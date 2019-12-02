@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HarveyJobsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tbAppInfo">
+    <Key>
+      <PropertyRef Name="AppID" />
+    </Key>
+    <Property Name="AppID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbScheduledJobs" Relationship="Self.FK_tbScheduledJobs_TotbAppInfo" FromRole="tbAppInfo" ToRole="tbScheduledJobs" />
+  </EntityType>
+  <EntityType Name="tbScheduledJob">
+    <Key>
+      <PropertyRef Name="JobsID" />
+    </Key>
+    <Property Name="JobsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AppID" Type="Int32" Nullable="false" />
+    <Property Name="Time" Type="Time" Precision="0" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Success" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Files_DwUp" Type="Int32" />
+    <Property Name="Files_Sorted" Type="Int32" />
+    <NavigationProperty Name="tbAppInfo" Relationship="Self.FK_tbScheduledJobs_TotbAppInfo" FromRole="tbScheduledJobs" ToRole="tbAppInfo" />
+  </EntityType>
+  <Association Name="FK_tbScheduledJobs_TotbAppInfo">
+    <End Role="tbAppInfo" Type="Self.tbAppInfo" Multiplicity="1" />
+    <End Role="tbScheduledJobs" Type="Self.tbScheduledJob" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAppInfo">
+        <PropertyRef Name="AppID" />
+      </Principal>
+      <Dependent Role="tbScheduledJobs">
+        <PropertyRef Name="AppID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HarveyJobsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tbAppInfoes" EntityType="Self.tbAppInfo" />
+    <EntitySet Name="tbScheduledJobs" EntityType="Self.tbScheduledJob" />
+    <AssociationSet Name="FK_tbScheduledJobs_TotbAppInfo" Association="Self.FK_tbScheduledJobs_TotbAppInfo">
+      <End Role="tbAppInfo" EntitySet="tbAppInfoes" />
+      <End Role="tbScheduledJobs" EntitySet="tbScheduledJobs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

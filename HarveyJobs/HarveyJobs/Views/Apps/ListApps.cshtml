@@ -1,0 +1,24 @@
+﻿@model IEnumerable<HarveyJobs.Models.tbAppInfo>
+
+@{
+    ViewBag.Title = "ListApps";
+}
+
+<h2>Listing all the Apps</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppName)
+        </td>
+    </tr>
+}
+
+</table>

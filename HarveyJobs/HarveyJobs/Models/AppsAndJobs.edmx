@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HarveyJobsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAppInfo">
+          <Key>
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="AppID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbScheduledJobs">
+          <Key>
+            <PropertyRef Name="JobsID" />
+          </Key>
+          <Property Name="JobsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="time" Precision="0" />
+          <Property Name="Day" Type="varchar" MaxLength="50" />
+          <Property Name="Success" Type="varchar" MaxLength="50" />
+          <Property Name="Files_DwUp" Type="int" />
+          <Property Name="Files_Sorted" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbScheduledJobs_TotbAppInfo">
+          <End Role="tbAppInfo" Type="Self.tbAppInfo" Multiplicity="1" />
+          <End Role="tbScheduledJobs" Type="Self.tbScheduledJobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAppInfo">
+              <PropertyRef Name="AppID" />
+            </Principal>
+            <Dependent Role="tbScheduledJobs">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HarveyJobsModelStoreContainer">
+          <EntitySet Name="tbAppInfo" EntityType="Self.tbAppInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbScheduledJobs" EntityType="Self.tbScheduledJobs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbScheduledJobs_TotbAppInfo" Association="Self.FK_tbScheduledJobs_TotbAppInfo">
+            <End Role="tbAppInfo" EntitySet="tbAppInfo" />
+            <End Role="tbScheduledJobs" EntitySet="tbScheduledJobs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HarveyJobsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAppInfo">
+          <Key>
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="AppID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbScheduledJobs" Relationship="Self.FK_tbScheduledJobs_TotbAppInfo" FromRole="tbAppInfo" ToRole="tbScheduledJobs" />
+        </EntityType>
+        <EntityType Name="tbScheduledJob">
+          <Key>
+            <PropertyRef Name="JobsID" />
+          </Key>
+          <Property Name="JobsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="Time" Precision="0" />
+          <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Success" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Files_DwUp" Type="Int32" />
+          <Property Name="Files_Sorted" Type="Int32" />
+          <NavigationProperty Name="tbAppInfo" Relationship="Self.FK_tbScheduledJobs_TotbAppInfo" FromRole="tbScheduledJobs" ToRole="tbAppInfo" />
+        </EntityType>
+        <Association Name="FK_tbScheduledJobs_TotbAppInfo">
+          <End Role="tbAppInfo" Type="Self.tbAppInfo" Multiplicity="1" />
+          <End Role="tbScheduledJobs" Type="Self.tbScheduledJob" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAppInfo">
+              <PropertyRef Name="AppID" />
+            </Principal>
+            <Dependent Role="tbScheduledJobs">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HarveyJobsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAppInfoes" EntityType="Self.tbAppInfo" />
+          <EntitySet Name="tbScheduledJobs" EntityType="Self.tbScheduledJob" />
+          <AssociationSet Name="FK_tbScheduledJobs_TotbAppInfo" Association="Self.FK_tbScheduledJobs_TotbAppInfo">
+            <End Role="tbAppInfo" EntitySet="tbAppInfoes" />
+            <End Role="tbScheduledJobs" EntitySet="tbScheduledJobs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HarveyJobsModelStoreContainer" CdmEntityContainer="HarveyJobsEntities">
+          <EntitySetMapping Name="tbAppInfoes">
+            <EntityTypeMapping TypeName="HarveyJobsModel.tbAppInfo">
+              <MappingFragment StoreEntitySet="tbAppInfo">
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbScheduledJobs">
+            <EntityTypeMapping TypeName="HarveyJobsModel.tbScheduledJob">
+              <MappingFragment StoreEntitySet="tbScheduledJobs">
+                <ScalarProperty Name="JobsID" ColumnName="JobsID" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Files_DwUp" ColumnName="Files_DwUp" />
+                <ScalarProperty Name="Files_Sorted" ColumnName="Files_Sorted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
